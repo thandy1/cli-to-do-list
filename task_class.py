@@ -12,9 +12,12 @@ class TaskList:
     def add_task(self):
         while True:
             self.clear_terminal()
-            task_title = input("Enter Task Title: ").title().strip()
-
-            if task_title in self.tasks:
+            task_title = input("Enter Task (or 'q' to cancel): \n").title().strip()
+            if task_title.lower() == "q":
+                print("Add task canceled")
+                time.sleep(1.5)
+                break       
+            elif task_title in self.tasks:
                 print("Warning: Task already exists.")
                 time.sleep(1.5)
             else:
