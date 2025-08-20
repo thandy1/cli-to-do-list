@@ -43,4 +43,5 @@ def run_system():
             
 
 # Function call to begin the program
-main()
+if __name__ == "__main__":
+    main()
