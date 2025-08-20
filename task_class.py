@@ -1,6 +1,7 @@
 import os
 import time
 
+
 class TaskList:
     # Turn functions into methods
     # Add self as first parameter so they can access the instance's data
@@ -9,10 +10,18 @@ class TaskList:
 
     # Add Task Logic
     def add_task(self):
-        self.clear_terminal()
+        while True:
+            self.clear_terminal()
+            task_title = input("Enter Task Title: ").title().strip()
 
-        task = input("Enter Task Title: ").title().strip()
-        self.tasks.append(task)
+            if task_title in self.tasks:
+                print("Warning: Task already exists.")
+                time.sleep(1.5)
+            else:
+                self.tasks.append(task_title)
+                print("Task added!")
+                time.sleep(1.5)
+                break
     
     # Edit Tasks Logic
     def edit_task(self):
