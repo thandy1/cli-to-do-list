@@ -19,7 +19,7 @@ def main():
             time.sleep(1.5) # Pause so user sees the message
             
     
-# System launch logic
+# System launch 
 def run_system():
     while True: 
         todo.clear_terminal()

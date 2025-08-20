@@ -1,32 +1,48 @@
 import os
 import time
 
+# This class represents a single task
+class Task:
+    def __init__(self, title, priority="Low", due_date=""):
+        self.title = title
+        self.priority = priority
+        self.due_date = due_date
 
+# This class manages a list of Task objects, handles add/edit/load/save
 class TaskList:
     # Turn functions into methods
     # Add self as first parameter so they can access the instance's data
     def __init__(self):
-        self.tasks = []
+        self.tasks = []   # List of Task objects
 
-    # Add Task Logic
+    # Add Task 
     def add_task(self):
         while True:
             self.clear_terminal()
             print("Current Tasks:\n")
             self.display_task()
-            task_title = input("\nEnter Task (or 'q' to cancel): ").title().strip()
-            if task_title.lower() == "q":
-                break       
-            elif task_title in self.tasks:
+
+            title = self.get_task_title()
+            if title is None:
+                break
+            elif title in self.tasks:
                 print("Warning: Task already exists.")
                 time.sleep(1.5)
-            else:
-                self.tasks.append(task_title)
-                print("Task added!")
-                time.sleep(1.3)
+                continue    # Go back to the start of the loop
+
+            priority = self.get_priority()
+            if priority is None:
                 break
+
+            due_date = self.get_due_date()
+            if due_date is None:
+                break
+
+            new_task = Task(title, priority, due_date)
+            self.tasks.append(new_task)
+               
     
-    # Edit Tasks Logic
+    # Edit Tasks 
     def edit_task(self):
         while True: 
             self.clear_terminal()
@@ -48,43 +64,71 @@ class TaskList:
                 print("Invalid Input: Please enter one of the options above.")
                 time.sleep(1.5)
 
-    # View Task Logic
+    # View Task 
     def view_task(self):
         self.clear_terminal()
         pass
 
-    # Clear terminal logic
+    # Clear terminal 
     def clear_terminal(self):
         # os.system runs a terminal command
         # conditional operator chooses the terminal command based on the users OS
         os.system("cls" if os.name == "nt" else "clear")
 
-    # Display Tasks Logic
+    # Display Tasks 
     def display_task(self):
         for i, task_title in enumerate(self.tasks, start=1):
                 print(f"{i}. {task_title}")
 
-    # Edit Task Property Logic
+    # Edit Task Property 
     def edit_task_property(self):
         self.clear_terminal()
         # display tasks here
         # ask user which task they would like to edit
         pass
 
-    # Remove Task Logic
+    # Remove Task 
     def remove_task(self):
         pass
 
-    # Clear Task Logic
+    # Clear Task 
     def clear_task_list(self):
         pass
 
-    # Existing Task Logic
+    # Existing Task 
     
-    # Load Tasks Logic
+    # Load Tasks 
     def load_tasks(self):
         pass
 
-    # Save Tasks Logic
+    # Save Tasks 
     def save_tasks(self):
         pass
+
+    # Get Task Title
+    def get_task_title(self):
+        task_title = input("Enter Task Title or 'q' to cancel: ").title().strip()
+        if task_title.lower() == "q":
+            return None # signal to cancel
+        return task_title
+    
+    # Get Due Date 
+    def get_due_date(self):
+        task_due_date = input("Enter Due Date (YYYY-MM-DD) or 'q' to cancel: ").strip()
+        if task_due_date.lower() == "q":
+            return None
+        return task_due_date
+    
+    # Get Priority 
+    def get_priority(self):
+        while True:
+            task_priority = input("Enter Priority (Low/Medium/High) or 'q' to cancel: ").strip().lower()
+            if task_priority == "q":
+                return None
+            elif task_priority != "low" or "medium" or "high":
+                print("Warning: Invalid Input")
+                time.sleep(1.5)
+                continue
+            else:
+                return task_priority
+    
