@@ -1,6 +1,7 @@
 import os
 import time
 from datetime import datetime
+import sys
 
 # This class represents a single task
 class Task:
@@ -82,7 +83,7 @@ class TaskList:
     # Display Tasks 
     def display_task(self):
         for i, task in enumerate(self.tasks, start=1):
-                print(f"{i}. {task.title}")
+                print(f"\t{i}. {task.title} | Due: {task.due_date}")
 
     # Edit Task Property 
     def edit_task_property(self):
@@ -119,7 +120,7 @@ class TaskList:
     # Get Due Date 
     def get_due_date(self):
         while True:
-            task_due_date = input("\nEnter Due Date (YYYY-MM-DD) or 'q' to cancel: ").strip()
+            task_due_date = input("Enter Due Date (YYYY-MM-DD) or 'q' to cancel: ").strip()
             if task_due_date.lower() == "q":
                 return None
             try:
@@ -137,12 +138,15 @@ class TaskList:
     # Get Priority 
     def get_priority(self):
         while True:
-            task_priority = input("\nEnter Priority (Low/Medium/High) or 'q' to cancel: ").strip()
+            task_priority = input("Enter Priority (Low/Medium/High) or 'q' to cancel: ").strip()
             if task_priority.lower() == "q":
                 return None
             elif task_priority.lower() not in ["low", "medium", "high"]:
-                print("Warning: Invalid Input")
+                # Prints on the same line, doesn't get pushed down
+                print("Warning: Invalid Input", end="\r")
                 time.sleep(1.5)
+                # Clears same warning message line
+                print("\r\033[K", end="")    
                 continue
             else:
                 return task_priority.title()
