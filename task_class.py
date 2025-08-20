@@ -12,10 +12,10 @@ class TaskList:
     def add_task(self):
         while True:
             self.clear_terminal()
-            task_title = input("Enter Task (or 'q' to cancel): \n").title().strip()
+            print("Current Tasks:\n")
+            self.display_task()
+            task_title = input("\nEnter Task (or 'q' to cancel): ").title().strip()
             if task_title.lower() == "q":
-                print("Add task canceled")
-                time.sleep(1.5)
                 break       
             elif task_title in self.tasks:
                 print("Warning: Task already exists.")
@@ -23,7 +23,7 @@ class TaskList:
             else:
                 self.tasks.append(task_title)
                 print("Task added!")
-                time.sleep(1.5)
+                time.sleep(1.3)
                 break
     
     # Edit Tasks Logic
@@ -61,7 +61,8 @@ class TaskList:
 
     # Display Tasks Logic
     def display_task(self):
-        pass
+        for i, task_title in enumerate(self.tasks, start=1):
+                print(f"{i}. {task_title}")
 
     # Edit Task Property Logic
     def edit_task_property(self):
@@ -80,3 +81,10 @@ class TaskList:
 
     # Existing Task Logic
     
+    # Load Tasks Logic
+    def load_tasks(self):
+        pass
+
+    # Save Tasks Logic
+    def save_tasks(self):
+        pass
