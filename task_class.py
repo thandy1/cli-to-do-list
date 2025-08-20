@@ -123,9 +123,10 @@ class TaskList:
             if task_due_date.lower() == "q":
                 return None
             try:
-                # try to parse the string into a date
+                # try to parse the string into a datetime object according to format
                 parsed_date = datetime.strptime(task_due_date, "%Y-%m-%d")
-                return parsed_date
+                # Convert the datetime back to a string before passing it to Task
+                return parsed_date.strftime("%Y-%m-%d")
             except ValueError:
                 # parsing failed, invalid format
                 print("Invalid date format.")
