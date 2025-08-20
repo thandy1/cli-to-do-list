@@ -1,5 +1,6 @@
 import os
 import time
+from datetime import datetime
 
 # This class represents a single task
 class Task:
@@ -46,6 +47,9 @@ class TaskList:
     def edit_task(self):
         while True: 
             self.clear_terminal()
+            print("Current Tasks:\n")
+            self.display_task()
+
             user_input = input(
                 "Select from the list of options:\n" \
                 "[1]: Edit Task Property\n" \
@@ -77,8 +81,8 @@ class TaskList:
 
     # Display Tasks 
     def display_task(self):
-        for i, task_title in enumerate(self.tasks, start=1):
-                print(f"{i}. {task_title}")
+        for i, task in enumerate(self.tasks, start=1):
+                print(f"{i}. {task.title}")
 
     # Edit Task Property 
     def edit_task_property(self):
@@ -107,28 +111,38 @@ class TaskList:
 
     # Get Task Title
     def get_task_title(self):
-        task_title = input("Enter Task Title or 'q' to cancel: ").title().strip()
+        task_title = input("\nEnter Task Title or 'q' to cancel: ").strip()
         if task_title.lower() == "q":
             return None # signal to cancel
-        return task_title
+        return task_title.title()
     
     # Get Due Date 
     def get_due_date(self):
-        task_due_date = input("Enter Due Date (YYYY-MM-DD) or 'q' to cancel: ").strip()
-        if task_due_date.lower() == "q":
-            return None
-        return task_due_date
+        while True:
+            task_due_date = input("\nEnter Due Date (YYYY-MM-DD) or 'q' to cancel: ").strip()
+            if task_due_date.lower() == "q":
+                return None
+            try:
+                # try to parse the string into a date
+                parsed_date = datetime.strptime(task_due_date, "%Y-%m-%d")
+                return parsed_date
+            except ValueError:
+                # parsing failed, invalid format
+                print("Invalid date format.")
+                time.sleep(1.5)
+                continue
+
     
     # Get Priority 
     def get_priority(self):
         while True:
-            task_priority = input("Enter Priority (Low/Medium/High) or 'q' to cancel: ").strip().lower()
-            if task_priority == "q":
+            task_priority = input("\nEnter Priority (Low/Medium/High) or 'q' to cancel: ").strip()
+            if task_priority.lower() == "q":
                 return None
-            elif task_priority != "low" or "medium" or "high":
+            elif task_priority.lower() not in ["low", "medium", "high"]:
                 print("Warning: Invalid Input")
                 time.sleep(1.5)
                 continue
             else:
-                return task_priority
+                return task_priority.title()
     

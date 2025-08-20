@@ -1,4 +1,3 @@
-import os
 import time
 from task_class import TaskList
 
