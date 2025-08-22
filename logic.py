@@ -2,8 +2,8 @@ import os
 import time
 from datetime import datetime
 import sys
-from main import console
-from main import todo
+from task_manager import console
+from task_manager import todo
 
 
 # This class represents a single task
@@ -121,7 +121,7 @@ class TaskList:
     def get_task_title(self):
         task_title = input("\nEnter Task Title or 'q' to cancel: ").strip()
         if task_title.lower() == "q":
-            return None # signal to cancel
+            return None 
         return task_title.title()
     
     # Get Due Date 

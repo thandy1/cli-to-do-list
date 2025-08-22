@@ -1,5 +1,5 @@
 import time
-from task_class import TaskList
+from logic import TaskList
 from rich.console import Console
 
 # Instances
@@ -17,9 +17,8 @@ def main():
             break
         else:
             print("Invalid Input: Please enter one of the options above.")
-            time.sleep(1.5) # Pause so user sees the message
-            
-    
+            time.sleep(1.5) 
+             
 # System launch 
 def run_system():
     while True: 

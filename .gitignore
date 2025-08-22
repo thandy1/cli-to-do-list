@@ -1,4 +1,6 @@
+# Python
 outline.md
 progress.txt
 __pycache__/
-database.csv
+storage.csv
+test_logic.py
