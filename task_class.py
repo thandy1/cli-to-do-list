@@ -2,9 +2,9 @@ import os
 import time
 from datetime import datetime
 import sys
-from rich.console import Console
+from main import console
+from main import todo
 
-console = Console()
 
 # This class represents a single task
 class Task:

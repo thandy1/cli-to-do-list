@@ -1,8 +1,10 @@
 import time
 from task_class import TaskList
+from rich.console import Console
 
-# Use the instance (todo) to access the methods
+# Instances
 todo = TaskList() 
+console = Console()
 
 # Main function call to launch the system or close
 def main():
@@ -37,7 +39,7 @@ def run_system():
         elif user_input == "4":
             break
         else: 
-            print("Invalid Input: Please enter one of the options above.")
+            console.print("Invalid Input: Please enter one of the options above.")
             time.sleep(1.5)
             
 
