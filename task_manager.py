@@ -16,9 +16,9 @@ def main():
         elif user_input == "2":
             break
         else:
-            print("Invalid Input: Please enter one of the options above.")
-            time.sleep(1.5) 
-             
+            console.print("[bold red]Invalid Input: Please enter one of the options above.[/]")
+            time.sleep(1) 
+              
 # System launch 
 def run_system():
     while True: 
@@ -30,16 +30,16 @@ def run_system():
             "[3]: View Task List\n" \
             "[4]: Exit\n")
         if user_input == "1":
-            todo.add_task()
+            todo.add_task(console)
         elif user_input == "2":
-            todo.edit_task()
+            todo.edit_task(console)
         elif user_input == "3":
             todo.view_task()
         elif user_input == "4":
             break
         else: 
-            console.print("Invalid Input: Please enter one of the options above.")
-            time.sleep(1.5)
+            console.print("[bold red]Invalid Input: Please enter one of the options above.[/]")
+            time.sleep(1)
             
 
 # Function call to begin the program
