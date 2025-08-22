@@ -1,6 +1,10 @@
 import os
 import time
 from datetime import datetime
+import sys
+from rich.console import Console
+
+console = Console()
 
 # This class represents a single task
 class Task:
@@ -144,12 +148,16 @@ class TaskList:
             if task_priority.lower() == "q":
                 return None
             elif task_priority.lower() not in ["low", "medium", "high"]:
-                # Prints on the same line, doesn't get pushed down
-                print("Warning: Invalid Input", end="\r")
+                # Show warning below
+                # Console object prints warning message with bold red font color
+                console.print("[bold red]Warning: Invalid Input[/]")
                 time.sleep(1.5)
-                # Clears same warning message line
-                print("\r\033[K", end="")    
+                sys.stdout.write("\033[F\033[K")
+                sys.stdout.write("\033[F\033[K")
+                sys.stdout.flush()
                 continue
             else:
                 return task_priority.title()
-    
+
+
+        
