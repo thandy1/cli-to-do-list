@@ -53,15 +53,11 @@ def add_task(console):
         if title is None:
             break
 
-        priority = todo.get_priority(console)
-        if priority is None:
+        days = todo.get_days_to_complete(console)
+        if days is None:
             break
 
-        due_date = todo.get_due_date(console)
-        if due_date is None:
-            break
-
-        new_task = Task(title, priority, due_date)
+        new_task = Task(title, days)
         todo.tasks.append(new_task)
         console.print(f"[bold green]Task added successfully![/]")
         time.sleep(1)   
