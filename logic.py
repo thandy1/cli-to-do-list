@@ -1,7 +1,6 @@
 import os
 import time
-from datetime import datetime
-import sys
+from datetime import datetime, timedelta
 
 # This class represents a single task
 class Task:
@@ -12,77 +11,10 @@ class Task:
 
 # This class manages a list of task objects, handles add/edit/load/save
 class TaskList:
-    # Turn functions into methods
     # Add self as first parameter so they can access the instance's data
     def __init__(self):
         self.tasks = []   # List of task objects
         
-
-    # Add Task 
-    def add_task(self, console):
-        while True:
-            self.clear_terminal()
-            print("Current Tasks:")
-            print()
-            self.display_task()
-            print() # Extra space to separate tasks from input
-
-            title = self.get_task_title(console)
-            if title is None:
-                break
-
-            priority = self.get_priority(console)
-            if priority is None:
-                break
-
-            due_date = self.get_due_date(console)
-            if due_date is None:
-                break
-
-            new_task = Task(title, priority, due_date)
-            self.tasks.append(new_task)
-
-            console.print(f"[bold green]Task added successfully![/]")
-            time.sleep(1)   
-            
-               
-    
-    # Edit Tasks 
-    def edit_task(self, console):
-        while True: 
-            self.clear_terminal()
-            print("Current Tasks:")
-            print()
-            self.display_task()
-            print() # Extra space to separate tasks from input
-
-            user_input = input(
-                "Select from the list of options:\n" \
-                "[1]: Edit Task Property\n" \
-                "[2]: Remove Task\n" \
-                "[3]: Clear Task List\n" \
-                "[4]: Main Menu\n")
-            if user_input == "1":
-                self.edit_task_property()
-            elif user_input == "2":
-                self.remove_task()
-            elif user_input == "3":
-                self.clear_task_list()
-            elif user_input == "4":
-                break # goes back to run_system()
-            else: 
-                console.print("[bold red]Invalid Input[/]")
-                time.sleep(1)
-
-    # View Task 
-    def view_task(self):
-        self.clear_terminal()
-        print("Current Tasks:")
-        print()
-        self.display_task()
-        print() # Extra space to separate tasks from input
-        pass
-
     # Clear terminal 
     def clear_terminal(self):
         # os.system runs a terminal command
@@ -138,8 +70,7 @@ class TaskList:
             if self.existing_task(task_title):
                     console.print("[bold red]Warning: Task already exists.[/]")
                     time.sleep(1)
-                    self.clear_last_two_lines()
-                    continue    # Go back to the start of the loop
+                    continue    
             
             return task_title.title()
     
@@ -158,7 +89,6 @@ class TaskList:
                 # parsing failed, invalid format
                 console.print("[bold red]Invalid date format.[/]")
                 time.sleep(1)
-                self.clear_last_two_lines()
                 continue
 
     # Get Priority 
@@ -168,19 +98,12 @@ class TaskList:
             if task_priority.lower() == "q":
                 return None
             elif task_priority.lower() not in ["low", "medium", "high"]:
-                # Show warning below
-                # Console object prints warning message with bold red font color
                 console.print("[bold red]Warning: Invalid Input[/]")
                 time.sleep(1)
-                self.clear_last_two_lines()
                 continue
             else:
                 return task_priority.title()
             
-    # Help function to clear lines
-    def clear_last_two_lines(self):
-        sys.stdout.write("\033[F\033[K")
-        sys.stdout.write("\033[F\033[K")
-        sys.stdout.flush()
+    
 
         
