@@ -1,11 +1,10 @@
 import os
 import time
 from datetime import datetime
-import sys
 
 # This class represents a single task
 class Task:
-    def __init__(self, title, priority="Low", due_date=""):
+    def __init__(self, title, priority="", due_date=""):
         self.title = title
         self.priority = priority
         self.due_date = due_date
@@ -83,7 +82,7 @@ class TaskList:
     # Display Tasks 
     def display_task(self):
         for i, task in enumerate(self.tasks, start=1):
-                print(f"\t{i}. {task.title} | Due: {task.due_date}")
+                print(f"\t{i}. {task.title} | Priority: {task.priority} | Due: {task.due_date}")
 
     # Edit Task Property 
     def edit_task_property(self):
@@ -92,6 +91,10 @@ class TaskList:
         # ask user which task they would like to edit
         pass
 
+    # Filter Task
+    def filter_task(self):
+        pass
+    
     # Remove Task 
     def remove_task(self):
         pass
@@ -134,7 +137,6 @@ class TaskList:
                 time.sleep(1.5)
                 continue
 
-    
     # Get Priority 
     def get_priority(self):
         while True:
