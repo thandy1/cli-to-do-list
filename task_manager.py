@@ -46,6 +46,7 @@ def add_task():
     while True:
         todo.clear_terminal()
         print("Run System > Add New Task\n")
+        print("Press 'q' to cancel.\n")
         
         title = todo.get_task_title(console)
         if title is None:
@@ -107,18 +108,16 @@ def edit_task_property():
                 return
             task_index = int(task_number) - 1
             if task_index < 0 or task_index >= len(todo.tasks):
-                todo.clear_terminal()
                 console.print(
                     f"[bold red]Invalid Input, '{task_number}.'\n"
                     "Please enter the number assigned to the task.[/]")
-                time.sleep(1.5)
+                time.sleep(1)
                 continue
             break
         except ValueError:
-            todo.clear_terminal()
             console.print("[bold red]Invalid Input:" 
                           "Please Enter task's number rank. (e.g., 1, 2)[/]")
-            time.sleep(1.5)
+            time.sleep(1)
             continue
 
     selected_task = todo.tasks[task_index]
@@ -126,7 +125,6 @@ def edit_task_property():
 
 
 def edit_selected_task(task):
-
     while True:
         todo.clear_terminal()
         print("Run System > Edit Task List > Edit Task Property > Edit Selected Task\n")
@@ -144,15 +142,15 @@ def edit_selected_task(task):
             new_title = input("Update Task Title: ").title().strip()
             if new_title.lower() == "q":
                 return  # exits this edit and goes back to the previous menu
-            task.update_title(new_title)
+            task.update_title(str(new_title))
             todo.clear_terminal()
             console.print(f"[bold green]Title updated to: {task.title}[/]")
             time.sleep(1.5)
             continue
 
         elif edit_task_input == "2":
+            todo.clear_terminal()
             while True:
-                todo.clear_terminal()
                 try:
                     new_days = (input("Update Days To Complete: "))
                     if new_days.lower() == "q":
@@ -163,9 +161,8 @@ def edit_selected_task(task):
                     time.sleep(1.5)
                     break
                 except ValueError:
-                    todo.clear_terminal()
                     console.print("[bold red]Invalid Input, Please enter a number.[/]")
-                    time.sleep(1.5)
+                    time.sleep(1)
                     continue
         elif edit_task_input == "3":
             break

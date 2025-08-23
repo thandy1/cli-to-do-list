@@ -19,11 +19,11 @@ class Task:
         else:
             return "Low"
         
-    def update_title(self, new_title: str):
+    def update_title(self, new_title):
         self.title = new_title  # directly changes the property
         return self.title
 
-    def update_days(self, new_days: int):
+    def update_days(self, new_days):
         self.days_to_complete = new_days
         self.due_date = datetime.now() + timedelta(days=new_days)
         self.priority = self.set_priority()
@@ -72,16 +72,13 @@ class TaskList:
 
     def get_task_title(self, console):
         while True:
-            self.clear_terminal()
-            print("Run System > Add New Task\n")
-            print("Press 'q' to cancel.\n")
             title_input = input("Enter Task Title: ").strip()
             if title_input.lower() == "q":
                 return None 
             
             if self.existing_task(title_input):
                     console.print("[bold red]Warning: Task already exists.[/]")
-                    time.sleep(1.5) 
+                    time.sleep(1) 
                     continue   
             
             return title_input.title()
@@ -97,7 +94,6 @@ class TaskList:
                     raise ValueError
                 return days
             except ValueError:
-                self.clear_terminal()
                 console.print("[bold red]Please enter a valid positive number.[/]")
-                time.sleep(1.5)
+                time.sleep(1)
                 continue
