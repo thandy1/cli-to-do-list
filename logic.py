@@ -19,6 +19,16 @@ class Task:
         else:
             return "Low"
         
+    def update_title(self, new_title: str):
+        self.title = new_title  # directly changes the property
+        return self.title
+
+    def update_days(self, new_days: int):
+        self.days_to_complete = new_days
+        self.due_date = datetime.now() + timedelta(days=new_days)
+        self.priority = self.set_priority()
+        return self.days_to_complete
+
 # This class manages a list of task objects, handles add/edit/load/save
 class TaskList:
     # Add self as first parameter so they can access the instance's data
@@ -26,8 +36,6 @@ class TaskList:
         self.tasks = []   # List of task objects
         
     def clear_terminal(self):
-        # os.system runs a terminal command
-        # conditional operator chooses the terminal command based on the users OS
         os.system("cls" if os.name == "nt" else "clear")
 
     def display_task(self):
@@ -36,12 +44,11 @@ class TaskList:
                 due_date = task.due_date.strftime("%Y-%m-%d") 
                 print(f"\t{i}. {task.title} | Priority: {task.priority} | Due: {due_date}")
 
-    def edit_task_property(self):
-        self.clear_terminal()
-        # display tasks here
-        # ask user which task they would like to edit
-        pass
-
+    def get_task_by_index(self, index: int):
+        if 0 <= index < len(self.tasks):
+            return self.tasks[index]
+        return None
+        
     def filter_task(self):
         pass
     
@@ -65,20 +72,23 @@ class TaskList:
 
     def get_task_title(self, console):
         while True:
+            self.clear_terminal()
+            print("Run System > Add New Task\n")
+            print("Press 'q' to cancel.\n")
             title_input = input("Enter Task Title: ").strip()
             if title_input.lower() == "q":
                 return None 
             
             if self.existing_task(title_input):
                     console.print("[bold red]Warning: Task already exists.[/]")
-                    time.sleep(1) 
+                    time.sleep(1.5) 
                     continue   
             
             return title_input.title()
     
     def get_days_to_complete(self, console):
         while True:
-            days_input = input("Days to complete (number): ").strip()
+            days_input = input("Days to complete (1-5): ").strip()
             if days_input.lower() == "q":
                 return None
             try:
@@ -87,10 +97,7 @@ class TaskList:
                     raise ValueError
                 return days
             except ValueError:
+                self.clear_terminal()
                 console.print("[bold red]Please enter a valid positive number.[/]")
-                time.sleep(1)
-
-
-    
-
-        
+                time.sleep(1.5)
+                continue
