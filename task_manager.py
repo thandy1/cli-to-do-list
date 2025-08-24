@@ -177,7 +177,7 @@ def remove_task():
     while True:
 
         try:
-            task_number = input("Which task would you like to remove?: ")
+            task_number = console.input("[bold orange1]Which task would you like to remove?:[/] ")
             if task_number.lower() == "q":
                 return
             task_index = int(task_number) - 1
@@ -187,7 +187,7 @@ def remove_task():
                 continue
             break
         except ValueError:
-            console.print("[bold red]Please Enter task's number rank. (e.g., 1, 2)[/]")
+            console.print("[bold red]Please enter task's number rank. (e.g., 1, 2)[/]")
             time.sleep(1)
             continue
 
@@ -203,7 +203,7 @@ def clear_tasks():
     print("Current Tasks:\n")
     todo.display_task()
     while True:
-        clear_input = console.input("\n[bold orange1]Warning: This action cant be undone.(y/n) ")
+        clear_input = console.input("\n[bold orange1]Warning: This action cant be undone (y/n): [/] ")
         if clear_input == "y":
             todo.clear_task_list()
             todo.save_tasks()
@@ -213,6 +213,10 @@ def clear_tasks():
             break
         elif clear_input == "n":
             return
+        else:
+            console.print("[bold red]Invalid Input: Please enter 'y' or 'n'.")
+            time.sleep(1)
+            continue
 
 # Function call to begin the program
 if __name__ == "__main__":
