@@ -14,15 +14,16 @@ def main():
         user_input = input(f"Welcome! Would you like to launch the system? \n[1]: Yes\n[2]: No\n")
 
         if user_input == "1":
-            run_system()
+            todo.load_tasks()
+            main_menu()
         elif user_input == "2":
             break
              
 # System launch 
-def run_system():
+def main_menu():
     while True: 
         todo.clear_terminal()
-        print("Run System\n")
+        print("Main Menu\n")
         print("Current Tasks:\n")
         todo.display_task()
 
@@ -50,7 +51,7 @@ def run_system():
 def add_task():
     while True:
         todo.clear_terminal()
-        print("Run System > Add New Task\n")
+        print("Main Menu > Add New Task\n")
         print("Press 'q' to cancel.\n")
 
         title_input = input("Enter Task Title: ").strip()
@@ -81,7 +82,7 @@ def add_task():
 
     new_task = Task(title, days)
     todo.tasks.append(new_task)
-
+    todo.save_tasks()
     todo.clear_terminal()
     console.print(f"[bold green]Task added successfully![/]")
     time.sleep(1.5)   
@@ -90,9 +91,12 @@ def add_task():
 def view_task():
     todo.clear_terminal()
     print("Run System > View Task List\n")
-    print("Current Tasks:")
+    print("Current Tasks:\n")
     todo.display_task()
-    pass
+    while True:
+        view_input = input("\nPress 'q' to cancel. ")
+        if view_input == "q":
+            break
 
 def edit_task():
     todo.clear_terminal()
@@ -119,6 +123,7 @@ def edit_task():
 
     selected_task = todo.tasks[task_index]
     edit_selected_task(selected_task)
+    todo.save_tasks()
 
 def edit_selected_task(task):
     while True:
@@ -164,10 +169,50 @@ def edit_selected_task(task):
             break
 
 def remove_task():
-    pass
+    todo.clear_terminal()
+    print("Run System > Remove Task\n")
+    print("Current Tasks:\n")
+    todo.display_task()
+    print("\nPress 'q' to cancel.\n")
+    while True:
+
+        try:
+            task_number = input("Which task would you like to remove?: ")
+            if task_number.lower() == "q":
+                return
+            task_index = int(task_number) - 1
+            if task_index < 0 or task_index >= len(todo.tasks):
+                console.print("[bold red]Please enter the number assigned to the task.[/]")
+                time.sleep(1)
+                continue
+            break
+        except ValueError:
+            console.print("[bold red]Please Enter task's number rank. (e.g., 1, 2)[/]")
+            time.sleep(1)
+            continue
+
+    todo.remove_selected_task(task_index)
+    todo.save_tasks()
+    todo.clear_terminal()
+    console.print("[bold green]Your task has been removed![/]")
+    time.sleep(1.5)
 
 def clear_tasks():
-    pass
+    todo.clear_terminal()
+    print("Run System > Clear Tasks\n")
+    print("Current Tasks:\n")
+    todo.display_task()
+    while True:
+        clear_input = console.input("\n[bold orange1]Warning: This action cant be undone.(y/n) ")
+        if clear_input == "y":
+            todo.clear_task_list()
+            todo.save_tasks()
+            todo.clear_terminal()
+            console.print("[bold green]Your tasks have been cleared![/]")
+            time.sleep(1.5)
+            break
+        elif clear_input == "n":
+            return
 
 # Function call to begin the program
 if __name__ == "__main__":
