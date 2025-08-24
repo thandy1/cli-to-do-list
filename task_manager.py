@@ -90,7 +90,7 @@ def add_task():
 
 def view_task():
     todo.clear_terminal()
-    print("Run System > View Task List\n")
+    print("Main Menu > View Task List\n")
     print("Current Tasks:\n")
     todo.display_task()
     while True:
@@ -100,7 +100,7 @@ def view_task():
 
 def edit_task():
     todo.clear_terminal()
-    print("Run System > Edit Task\n")
+    print("Main Menu > Edit Task\n")
     print("Current Tasks:\n")
     todo.display_task()
     print("\nPress 'q' to cancel.\n")
@@ -128,7 +128,7 @@ def edit_task():
 def edit_selected_task(task):
     while True:
         todo.clear_terminal()
-        print("Run System > Edit Task List > Edit Selected Task\n")
+        print("Main Menu > Edit Task List > Edit Selected Task\n")
         print("What would you like to edit?\n")
 
         edit_task_input = input(
@@ -170,7 +170,7 @@ def edit_selected_task(task):
 
 def remove_task():
     todo.clear_terminal()
-    print("Run System > Remove Task\n")
+    print("Main Menu > Remove Task\n")
     print("Current Tasks:\n")
     todo.display_task()
     print("\nPress 'q' to cancel.\n")
@@ -199,7 +199,7 @@ def remove_task():
 
 def clear_tasks():
     todo.clear_terminal()
-    print("Run System > Clear Tasks\n")
+    print("Main Menu > Clear Tasks\n")
     print("Current Tasks:\n")
     todo.display_task()
     while True:
