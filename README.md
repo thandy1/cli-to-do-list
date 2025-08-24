@@ -15,6 +15,7 @@ Allows users to add, edit, view, remove, and clear tasks, with CSV-based persist
 - Load and save tasks to a CSV file (`storage.csv`)
 - CLI interface with Rich for colored font decorations
 - Test file included as boilerplate to run your own tests
+- Auto-creation and management of CSV storage
 
 ---
 
