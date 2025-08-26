@@ -35,6 +35,7 @@ def main_menu():
             "[4]: Remove Task\n"
             "[5]: Clear Tasks\n"
             "[6]: Exit\n")
+        
         if user_input == "1":
             add_task()
         elif user_input == "2":
@@ -72,6 +73,7 @@ def add_task():
         try:
             if todo.positive_number_check(days_input):  
                 raise ValueError
+            
         except ValueError:
             console.print("[bold red]Please enter a valid positive number.[/]")
             time.sleep(1)
@@ -105,19 +107,18 @@ def edit_task():
     todo.display_task()
     print("\nPress 'q' to cancel.\n")
     while True:
-
         try:
             task_number = input("Which task would you like to edit?: ")
             if task_number.lower() == "q":
                 return
+            
             task_index = int(task_number) - 1
             if task_index < 0 or task_index >= len(todo.tasks):
-                console.print("[bold red]Please enter the number assigned to the task.[/]")
-                time.sleep(1)
-                continue
+                raise ValueError
             break
+
         except ValueError:
-            console.print("[bold red]Please Enter task's number rank. (e.g., 1, 2)[/]")
+            console.print("[bold red]Please enter task's number rank. (e.g., 1, 2)[/]")
             time.sleep(1)
             continue
 
@@ -142,7 +143,7 @@ def edit_selected_task(task):
             print("Press 'q' to cancel.\n")
             new_title = input("Update Task Title: ").title().strip()
             if new_title.lower() == "q":
-                return  # exits this edit and goes back to the previous menu
+                break
             task.update_title(str(new_title))
             todo.clear_terminal()
             console.print(f"[bold green]Title updated to: {task.title}[/]")
@@ -165,6 +166,7 @@ def edit_selected_task(task):
                     console.print("[bold red]Invalid Input, Please enter a number.[/]")
                     time.sleep(1)
                     continue
+
         elif edit_task_input == "3":
             break
 
@@ -175,21 +177,21 @@ def remove_task():
     todo.display_task()
     print("\nPress 'q' to cancel.\n")
     while True:
-
         try:
             task_number = console.input("[bold orange1]Which task would you like to remove?:[/] ")
+
             if task_number.lower() == "q":
                 return
+            
             task_index = int(task_number) - 1
             if task_index < 0 or task_index >= len(todo.tasks):
-                console.print("[bold red]Please enter the number assigned to the task.[/]")
-                time.sleep(1)
-                continue
+               raise ValueError
             break
+
         except ValueError:
             console.print("[bold red]Please enter task's number rank. (e.g., 1, 2)[/]")
             time.sleep(1)
-            continue
+            continue 
 
     todo.remove_selected_task(task_index)
     todo.save_tasks()
@@ -203,20 +205,27 @@ def clear_tasks():
     print("Current Tasks:\n")
     todo.display_task()
     while True:
-        clear_input = console.input("\n[bold orange1]Warning: This action cant be undone (y/n): [/] ")
-        if clear_input == "y":
-            todo.clear_task_list()
-            todo.save_tasks()
-            todo.clear_terminal()
-            console.print("[bold green]Your tasks have been cleared![/]")
-            time.sleep(1.5)
-            break
-        elif clear_input == "n":
-            return
-        else:
-            console.print("[bold red]Invalid Input: Please enter 'y' or 'n'.")
-            time.sleep(1)
-            continue
+        try:
+            clear_input = console.input("\n[bold orange1]Warning: This action cant be undone (y/n): [/] ")
+
+            if clear_input == "y":
+                todo.clear_task_list()
+                todo.save_tasks()
+                todo.clear_terminal()
+                console.print("[bold green]Your tasks have been cleared![/]")
+                time.sleep(1.5)
+                break
+
+            elif clear_input == "n":
+                return
+            
+            else: 
+                raise ValueError 
+             
+        except ValueError:
+                console.print("[bold red]Invalid Input: Please enter 'y' or 'n'.")
+                time.sleep(1)
+                continue
 
 # Function call to begin the program
 if __name__ == "__main__":
