@@ -142,6 +142,7 @@ def edit_selected_task(task):
             todo.clear_terminal()
             while True:
                 try:
+                    print("Press 'q' to cancel.\n")
                     new_days = (input("Update Days To Complete: "))
                     if new_days.lower() == "q":
                         return
