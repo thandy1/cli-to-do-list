@@ -130,6 +130,7 @@ def edit_selected_task(task):
         if edit_task_input == "1":
             todo.clear_terminal()
             print("Press 'q' to cancel.\n")
+            print(f"Current: {task.title}\n")
             new_title = input("Update Task Title: ").title().strip()
             if new_title.lower() == "q":
                 break
@@ -143,6 +144,7 @@ def edit_selected_task(task):
             while True:
                 try:
                     print("Press 'q' to cancel.\n")
+                    print(f"Current: {due_date}\n")
                     new_days = (input("Update Days To Complete: "))
                     if new_days.lower() == "q":
                         return
