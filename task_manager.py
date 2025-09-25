@@ -117,9 +117,13 @@ def edit_selected_task(task):
     while True:
         todo.clear_terminal()
         print("Main Menu > Edit Task List > Edit Selected Task\n")
-        print("What would you like to edit?\n")
+
+        # Display selected task to edit
+        due_date = task.due_date.strftime("%Y-%m-%d")
+        print(f"Selected Task:\n\n\t{task.title} | Due: {due_date}\n")
+
         edit_task_input = input(
-            "Please select an option: \n"
+            "What would you like to edit?\n"
             "[1]: Task Title\n"
             "[2]: Days To Complete\n"
             "[3]: ..\n")
